@@ -5,10 +5,26 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no tests are implemented yet \" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage && coveralls < coverage/lcov.info"
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "coveralls": "^3.1.1",
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0"
+  },
+  "jest": {
+    "transform": {},
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["json", "lcov", "text", "clover"],
+    "collectCoverageFrom": [
+      "**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "verbose": true
+  }
 }
