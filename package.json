@@ -18,7 +18,12 @@
     "transform": {},
     "collectCoverage": true,
     "coverageDirectory": "coverage",
-    "coverageReporters": ["json", "lcov", "text", "clover"],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "clover"
+    ],
     "collectCoverageFrom": [
       "**/*.js"
     ],
@@ -26,5 +31,8 @@
       "/node_modules/"
     ],
     "verbose": true
+  },
+  "dependencies": {
+    "software-testing-assignment": "file:"
   }
 }
