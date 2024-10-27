@@ -1,4 +1,4 @@
-import words from '../words.js'
+import words from '../../words.js'
 
 test("First words test", () => {
     const test1 = 'fred, barney, & pebbles'

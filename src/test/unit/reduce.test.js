@@ -1,4 +1,4 @@
-import reduce from '../reduce.js'
+import reduce from '../../reduce.js'
 
 test("First reduce test", () => {
     expect(reduce([1, 2], (sum, n) => sum + n, 0)).toStrictEqual(3)

@@ -1,4 +1,4 @@
-import get from '../get';
+import get from '../../get';
 
 describe('Test get function', () => {
     const object = { 

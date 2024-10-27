@@ -1,4 +1,4 @@
-import map from '../map.js'
+import map from '../../map.js'
 
 test('Map first test', () => {
     const test1 = [4, 8]

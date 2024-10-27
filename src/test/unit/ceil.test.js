@@ -1,3 +1,4 @@
+import ceil from '../../ceil';
 
 describe('Test ceil function', () => {
 

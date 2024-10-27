@@ -1,4 +1,4 @@
-import toNumber from '../toNumber';
+import toNumber from '../../toNumber';
 
 
 describe('Test toNumber function', () => {

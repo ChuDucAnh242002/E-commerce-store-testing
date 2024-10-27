@@ -1,4 +1,4 @@
-import eq from "../eq";
+import eq from "../../eq";
 
 describe('Test eq function', () => {
     test('Should be true for the same object', () => {
