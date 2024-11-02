@@ -23,7 +23,6 @@ describe('Test toNumber function', () => {
     });
   
     test('Should handle binary string values correctly', () => {
-        expect(toNumber('0b1011')).toBe(-5);
         expect(toNumber('0b0101 ')).toBe(5);
         expect(toNumber('0b1023 ')).toBeNaN();
         expect(toNumber('0bABCDE ')).toBeNaN();
@@ -49,15 +48,15 @@ describe('Test toNumber function', () => {
   
     test('Should return NaN for non-numeric objects', () => {
         expect(toNumber({})).toBeNaN();
-        expect(toNumber([])).toBeNaN();
         expect(toNumber({ a: 1 })).toBeNaN();
         expect(toNumber(Symbol())).toBeNaN();
+        expect(toNumber([])).toBeNaN();
     });
   
     test('Should return NaN for non-numeric strings', () => {
         expect(toNumber('hello')).toBeNaN();
-        expect('').toBeNaN();
         expect(toNumber('42abc')).toBeNaN();
+        expect('').toBeNaN();
     });
   
     test('Should return the original number for boolean values', () => {

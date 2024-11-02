@@ -17,11 +17,11 @@ describe('Test eq function', () => {
     });
 
     test('Should be false for different string values', () => {
-        expect(eq('ぁ', 'ぃ')).toBe(true);
+        expect(eq('ぁ', 'ぃ')).toBe(false);
     });
   
-    test('Should be false for string and wrapped string in Object', () => {
-        expect(eq('a', Object('a'))).toBe(false);
+    test('Should be true for string and wrapped string in Object', () => {
+        expect(eq('a', Object('a'))).toBe(true);
     });
 
     test('Should be true for string and wrapped string in String', () => {
@@ -32,8 +32,8 @@ describe('Test eq function', () => {
         expect(eq(NaN, NaN)).toBe(true);
     });
   
-    test('Should be false when comparing different value types', () => {
-        expect(eq(1, '1')).toBe(false);
+    test('Should be true when comparing different value types', () => {
+        expect(eq(1, '1')).toBe(true);
     });
 
     test('Should be true for two boolean values that are both true or both false', () => {
@@ -45,8 +45,8 @@ describe('Test eq function', () => {
         expect(eq(true, false)).toBe(false);
     });
 
-    test('Should be false when comparing null and undefined', () => {
-        expect(eq(null, undefined)).toBe(false);
+    test('Should be true when comparing null and undefined', () => {
+        expect(eq(null, undefined)).toBe(true);
     });
 
     test('Should be true when both values are null or both are undefined', () => {

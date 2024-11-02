@@ -34,20 +34,20 @@ describe('Test ceil function', () => {
   
     test('Should handle large positive and negative precision', () => {
         expect(ceil(1.2345, 292)).toBe(1.2345);
-        expect(ceil(1.2345, -292)).toBe(0);
+        expect(ceil(1.2345, -292)).toBe(1e+292);
     });
   
     test('Should handle non numeric values as NaN', () => {
         expect(ceil(NaN)).toBeNaN();
         expect(ceil('abc')).toBeNaN();
         expect(ceil(undefined)).toBeNaN();
-        expect(ceil(null)).toBeNaN();
         expect(ceil(true)).toBeNaN();
+        expect(ceil(null)).toBeNaN();
     });
   
     test('Should handle rounding very large and very small numbers', () => {
         expect(ceil(1e10, -5)).toBe(10000000000);
-        expect(ceil(-1e-10, 10)).toBe(0);
+        expect(ceil(-1e-10, 10)).toBe(-1e-10);
     });
     
 });

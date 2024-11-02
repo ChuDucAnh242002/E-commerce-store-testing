@@ -47,13 +47,13 @@ describe('Test get function', () => {
     });
 
     test('Should handle array as the target object', () => {
-        expect(get(array.a, '[0].b')).toBe(array.a[0].b);
-        expect(get(array.a, '[1]')).toBe(2);
-        expect(get(array, '[0].b.c')).toBe(3);
+        expect(get(object.a, '[0].b')).toBe(object.a[0].b);
+        expect(get(object.a, '[1]')).toBe(2);
+        expect(get(object.a, '[0].b.c')).toBe(3);
     });
 
     test('Should return the entire object if an empty path is provided', () => {
-        expect(get(object, [])).toBe(object);
         expect(get(object, '')).toBe(object);
+        expect(get(object, [])).toBe(object);
     });
 });

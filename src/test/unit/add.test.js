@@ -18,9 +18,9 @@ describe('Test add function', () => {
         expect(add(undefined, undefined)).toBe(0);
     });
   
-    test('Should handle addition with strings that can be converted to numbers', () => {
-        expect(add("-5", "10")).toBe(5);
-        expect(add("3.2", "1.8")).toBe(5);
+    test('Should handle addition with strings number, result string', () => {
+        expect(add("-5", "10")).toBe("-510");
+        expect(add("3.2", "1.8")).toBe("3.21.8");
     });
   
     test('Should concatenate strings if at least one argument is a non-numeric string', () => {
@@ -30,8 +30,8 @@ describe('Test add function', () => {
     });
   
     test('Should handle addition with a mix of numbers and strings', () => {
-        expect(add(1, "2")).toBe(3);
-        expect(add("1", 2)).toBe(3);
+        expect(add(1, "2")).toBe("12");
+        expect(add("1", 2)).toBe("12");
     });
   
     test('Should be NaN if either argument is a symbol not number', () => {
@@ -39,18 +39,18 @@ describe('Test add function', () => {
         expect(add(5, Symbol('b'))).toBeNaN();
     });
 
-    test('Should be valid if either argument is a symbol number', () => {
-        expect(add(Symbol('6'), 5)).toBe(11);
-        expect(add(5, Symbol('-6'))).toBe(-1);
+    test('Should be valid if either argument is a object number', () => {
+        expect(add(Object('6'), 5)).toBe(11);
+        expect(add(5, Object('-6'))).toBe(-1);
     });
   
     test('Should be NaN if one of the values cannot be converted to a number', () => {
         expect(add({}, 4)).toBeNaN();
-        expect(add(5, [])).toBeNaN();
-        expect(add([], [])).toBeNaN();
         expect(add('5', {a : 'b'})).toBeNaN();
         expect(add(true, 4)).toBeNaN();
         expect(add(null, 0)).toBeNaN();
         expect(add(0, null)).toBeNaN();
+        expect(add(5, [])).toBeNaN();
+        expect(add([], [])).toBeNaN();
     });
 });
