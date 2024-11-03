@@ -1,10 +1,14 @@
-on: ["push", "pull_request"]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 name: Test Coveralls
 
 jobs:
   test:
-    runs-on: window-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -17,6 +21,6 @@ jobs:
       run: npm test
     
     - name: Upload coverage to Coveralls
-      run: npm run coveralls
+      run: npm run test:coveralls
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
