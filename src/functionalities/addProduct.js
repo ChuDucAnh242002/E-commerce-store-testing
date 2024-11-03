@@ -4,7 +4,7 @@ import filter from "../filter";
 import parseFloat from "../parseFloat";
 
 // This function include product modify, addition, deletion
-export const modifyProduct = (product, productsDatabase) => {
+export const addProduct = (product, productsDatabase) => {
     if (!product.name || !product.category || !product.price) {
       return {
         success: false,
@@ -17,9 +17,11 @@ export const modifyProduct = (product, productsDatabase) => {
     const existingItems = filter( cloneDatabase, p => p.name === product.name && p.category === product.category && p.price === product.price)
     let currentProduct = null;
     if (existingItems.length > 0) {
-        currentProduct = existingItems[existingItems.length - 1];
-        const quantity = add(existingItems[existingItems.length - 1].quantity, product.quantity || 1)
-        currentProduct.quantity = quantity >= 0 ? quantity : 0;
+        return {
+          success: false,
+          message: "Product existed.",
+          productsDatabase,
+        };
     } else {
         const { name, price, ...other } = product;
         currentProduct = {
@@ -34,7 +36,7 @@ export const modifyProduct = (product, productsDatabase) => {
   
     return {
       success: true,
-      message: "Product modified.",
+      message: "Product added.",
       productsDatabase,
     };
   }
