@@ -3,7 +3,6 @@ import capitalize from "../capitalize";
 import filter from "../filter";
 import parseFloat from "../parseFloat";
 
-// This function include product modify, addition, deletion
 export const addProduct = (product, productsDatabase) => {
     if (!product.name || !product.category || !product.price) {
       return {

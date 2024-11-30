@@ -8,14 +8,6 @@ import {credentials} from './db/credentials';
 describe('Scenario 4 tests', () => {
     let dbProducts = JSON.parse(JSON.stringify(products));
     let dbCredentials = JSON.parse(JSON.stringify(credentials));
-    const invalidCred = [
-        {email: null, password: null},
-        {email: undefined, password: undefined},
-        {email: null, password: undefined},
-        {email: undefined, password: null},
-        {email: '', password: ''},
-        {email: credentials[0].email, password: 'invalid password'},
-    ]
 
     beforeEach(()=>{
         // reset product to avoid modification
@@ -230,20 +222,20 @@ describe('Scenario 4 tests', () => {
     describe('return request', () => {
         test('Invalid product', () => {
             anProduct.price = -1000;
-            const result = returnRequest(anProduct);
+            const result = returnRequest(anProduct, 'add');
             expect(result.success).toBe(false);
             expect(result.message).toBe('Invalid product data.');
         })
 
         test('Valid product', () => {
-            const result = returnRequest(anProduct);
+            const result = returnRequest(anProduct, 'add');
             expect(result.success).toBe(true);
-            expect(result.message).toBe('Product added to the database.');
+            expect(result.message).toBe('Product add to the database.');
         })
     })
 
     describe('Show product information after added', () => {
-        // Update product data
+
         beforeAll(() => {
             global.alert = jest.fn(); // Mock alert globally
         });

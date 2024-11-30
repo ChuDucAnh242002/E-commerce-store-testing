@@ -1,7 +1,7 @@
 // Return correct request to frontend by validating product
-export const returnRequest = (productData) => {
+export const returnRequest = (productData, type) => {
     if (validateProduct(productData).valid) {
-      return { success: true, message: "Product added to the database." };
+      return { success: true, message: `Product ${type} to the database.` };
     }
     return { success: false, message: "Invalid product data." };
   }
