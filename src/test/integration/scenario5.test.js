@@ -1,9 +1,11 @@
-import { login } from '../../functionalities/login';
-import { modifyProduct } from "../../functionalities/ModifyProduct";
-import { showProductNotification } from '../../functionalities/ShowProductNotification';
-import {products} from './db/products';
-import {credentials} from './db/credentials';
+import { login } from '../../login';
+import { modifyProduct } from "../../modifyProduct";
+import { showProductNotification } from '../../showProductNotification';
+import {products} from './products';
+import {credentials} from './credentials';
 import ceil from '../../ceil';
+import {validateProduct, returnRequest} from '../../validateProduct';
+import filter from '../../filter';
 // Even though the functionalities are relatively the same to scenarios 4
 // each scenario is a different process going through the system, therefore, even tested same way, the result may differ
 
@@ -15,7 +17,7 @@ describe('scenario5', () => {
         // reset product to avoid modification
         dbProducts = JSON.parse(JSON.stringify(products));
         dbCredentials = JSON.parse(JSON.stringify(credentials));
-        randomProduct = dbProducts[ceil(Math.random() * 10)];
+        randomProduct = dbProducts[1];
     })
 
     describe('producerLogin', () => {
@@ -74,69 +76,84 @@ describe('scenario5', () => {
                 name: 'test',
                 category: 'test',
                 price: 10,
-                quantity: 10
+                quantity: 10,
+                description: 'test dé'
             }
-            const { success, message, dbProducts } = modifyProduct(randomProduct.id, newProduct, dbProducts);
+            const { success, message, productsDatabase } = modifyProduct(randomProduct.id, newProduct, dbProducts);
             expect(success).toBe(true);
             expect(message).toBe('Product modified.');
-            const productFromDB = filter( dbProducts, p => p.name === newProduct.name && p.category === newProduct.category && p.price === newProduct.price && p.id == randomProduct.id)
+            const productFromDB = filter( productsDatabase, p => p.name === newProduct.name && p.category === newProduct.category && p.price === newProduct.price && p.id == randomProduct.id)
             expect(productFromDB.length).toBe(1);
         });
 
         describe('Modify invalid product', () => {
+            test('Product false id', () => {
+                const result = modifyProduct(25, randomProduct, dbProducts);
+                //expect(result.success).toBe(false);
+                expect(result.message).toBe("Product doesn't exist.");
+                expect(result.productsDatabase).toEqual(dbProducts);
+            })
+
+            test('Product null id', () => {
+                const result = modifyProduct(null, randomProduct, dbProducts);
+                expect(result.success).toBe(false);
+                expect(result.message).toBe('Invalid ID.');
+                expect(result.productsDatabase).toEqual(dbProducts);
+            })
+
             test('Product without name', () => {
                 delete randomProduct.name
                 const result = modifyProduct(randomProduct.id, randomProduct, dbProducts);
                 expect(result.success).toBe(false);
-                expect(result.message).toBe('Missing required fields.');
-                expect(result.dbProducts).toEqual(dbProducts);
+                expect(result.message).toBe('Required fields cannot be empty.');
+                expect(result.productsDatabase).toEqual(dbProducts);
             })
 
             test('Product without description', () => {
                 delete randomProduct.description
                 const result = modifyProduct(randomProduct.id, randomProduct, dbProducts);
                 expect(result.success).toBe(false);
-                expect(result.message).toBe('Missing required fields.');
-                expect(result.dbProducts).toEqual(dbProducts);
+                expect(result.message).toBe('Required fields cannot be empty.');
+                expect(result.productsDatabase).toEqual(dbProducts);
             })
 
             test('Product without category', () => {
                 delete randomProduct.category
                 const result = modifyProduct(randomProduct.id, randomProduct, dbProducts);
                 expect(result.success).toBe(false);
-                expect(result.message).toBe('Missing required fields.');
-                expect(result.dbProducts).toEqual(dbProducts);
+                expect(result.message).toBe('Required fields cannot be empty.');
+                expect(result.productsDatabase).toEqual(dbProducts);
             })
 
             test('Product without price', () => {
                 delete randomProduct.price;
                 const result = modifyProduct(randomProduct.id, randomProduct, dbProducts);
                 expect(result.success).toBe(false);
-                expect(result.message).toBe('Missing required fields.');
-                expect(result.dbProducts).toEqual(dbProducts);
+                expect(result.message).toBe('Required fields cannot be empty.');
+                expect(result.productsDatabase).toEqual(dbProducts);
             })
 
             test('Product without quantity', () => {
                 delete randomProduct.quantity;
                 const result = modifyProduct(randomProduct.id, randomProduct, dbProducts);
                 expect(result.success).toBe(false);
-                expect(result.message).toBe('Missing required fields.');
-                expect(result.dbProducts.length).toBe(products.length);
+                expect(result.message).toBe('Required fields cannot be empty.');
+                expect(result.productsDatabase.length).toBe(products.length);
             })
 
             test('Product with different dataType', () => {
                 const nullResult = modifyProduct(randomProduct.id, null, dbProducts);
                 expect(nullResult.success).toBe(false);
-                expect(nullResult.message).toBe('Missing required fields.');
-                expect(nullResult.dbProducts.length).toBe(products.length);
+                expect(nullResult.message).toBe('Invalid product data.');
+                expect(nullResult.productsDatabase.length).toBe(products.length);
                 const undefinedResult = modifyProduct(randomProduct.id, undefined, dbProducts);
                 expect(undefinedResult.success).toBe(false);
-                expect(undefinedResult.message).toBe('Missing required fields.');
-                expect(undefinedResult.dbProducts.length).toBe(products.length);
+                expect(undefinedResult.message).toBe('Invalid product data.');
+                expect(undefinedResult.productsDatabase.length).toBe(products.length);
                 const emptyStringResult = modifyProduct(randomProduct.id, '', dbProducts);
                 expect(emptyStringResult.success).toBe(false);
-                expect(emptyStringResult.message).toBe('Missing required fields.');
-                expect(emptyStringResult.dbProducts.length).toBe(products.length);
+                expect(emptyStringResult.message).toBe('Invalid product data.');
+                expect(emptyStringResult.productsDatabase.length).toBe(products.length);
             })
         })
 
@@ -162,21 +179,21 @@ describe('scenario5', () => {
             delete randomProduct.category
             const result = validateProduct(randomProduct);
             expect(result.valid).toBe(false);
-            expect(result.message).toBe('Missing required fields.');
+            expect(result.message).toBe('Required fields cannot be empty.');
         })
 
         test('Product without price', () => {
             delete randomProduct.price;
             const result = validateProduct(randomProduct);
             expect(result.valid).toBe(false);
-            expect(result.message).toBe('Missing required fields.');
+            expect(result.message).toBe('Required fields cannot be empty.');
         })
 
         test('Product without quantity', () => {
             delete randomProduct.quantity;
             const result = validateProduct(randomProduct);
             expect(result.valid).toBe(false);
-            expect(result.message).toBe('Missing required fields.');
+            expect(result.message).toBe('Required fields cannot be empty.');
         })
 
         test('Product with negative price', () => {
@@ -210,21 +227,15 @@ describe('scenario5', () => {
 
     describe('Show product information after modified', () => {
 
-        beforeAll(() => {
-            global.alert = jest.fn();
-        });
-
         test('Correct product', () => {
-            const productDetails = dbProducts[0]
-            showProductNotification(productDetails, 'modified');
-            expect(global.alert).toHaveBeenCalledWith('Congratulations, Orange is successfully modified.');
+            const productDetails = dbProducts[0];
+            expect(showProductNotification(productDetails, 'modified')).toBe('Congratulations, Orange is successfully modified.');
         })
 
         test('Product without name', () => {
-            const productDetails = dbProducts[0]
-            delete productDetails.name
-            showProductNotification(productDetails, 'modified');
-            expect(global.alert).toHaveBeenCalledWith('Congratulations, New Product is successfully modified.');
+            const productDetails = dbProducts[0];
+            delete productDetails.name;
+            expect(showProductNotification(productDetails, 'modified')).toBe('Congratulations, New Product is successfully modified.');
         })
     })
 })

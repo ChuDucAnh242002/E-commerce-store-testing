@@ -1,7 +1,7 @@
-import compact from "../compact";
-import capitalize from "../capitalize";
-import filter from "../filter";
-import parseFloat from "../parseFloat";
+import compact from "./compact";
+import capitalize from "./capitalize";
+import filter from "./filter";
+import toNumber from "./toNumber";
 
 export const modifyProduct = (id, product, productsDatabase) => {
     if (typeof id !== "number") {
@@ -11,30 +11,31 @@ export const modifyProduct = (id, product, productsDatabase) => {
             productsDatabase,
         };
     }
-    if (!product.name || !product.category || !product.price) {
+   if (!product || typeof product !== 'object'){
+     return {
+        success: false,
+        message: "Invalid product data.",
+        productsDatabase,
+     };
+   }
+    if (!product.name || !product.category || !product.price || !product.quantity || !product.description) {
       return {
         success: false,
-        message: "Missing required fields.",
+        message: "Required fields cannot be empty.",
         productsDatabase,
       };
     }
     let cloneDatabase = JSON.parse(JSON.stringify(compact(productsDatabase)));
-    const existingItems = filter( cloneDatabase, p => p.id === id)
+    const existingItems = filter( cloneDatabase, p =>  p.id === id)
     let currentProduct = null;
-    if (product.quantity && product.quantity <= 0) {
-        return {
-            success: false,
-            message: "Quantity must be greater than 0.",
-            productsDatabase,
-        };
-    }
-    if (existingItems.length > 0) {
+
+    if (existingItems.length > 0 && !Array.isArray(existingItems[0])) {
         currentProduct = existingItems[0];
         currentProduct = {
             ...currentProduct,
             ...product,
-            name: capitalize(product.name),
-            price: parseFloat(product.price)
+            name: product.name,
+            price: toNumber(product.price)
           };
         cloneDatabase[cloneDatabase.map((p) => p.id).indexOf(id)] = currentProduct;
     } else {
@@ -48,6 +49,6 @@ export const modifyProduct = (id, product, productsDatabase) => {
     return {
       success: true,
       message: "Product modified.",
-      productsDatabase,
+      productsDatabase: cloneDatabase,
     };
   }

@@ -1,5 +1,5 @@
-import filter from "../filter";
-import eq from "../eq";
+import filter from "./filter";
+import eq from "./eq";
 
 export const login = (email, password, credentials) => {
     if (!email || !password) {

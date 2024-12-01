@@ -1,4 +1,4 @@
-export const mockProducerCredentials = [
+export const credentials = [
     { 
         id: 1,
         email: 'user@example.com', 
