@@ -33,7 +33,7 @@ export const addProduct = (product, productsDatabase) => {
             ...other,
             name: name,
             price: toNumber(price),
-            quantity: product.quantity > 0 ? product.quantity : 1,
+            quantity: product.quantity,
             id: productsDatabase.length+1
           };
           productsDatabase.push(currentProduct);
