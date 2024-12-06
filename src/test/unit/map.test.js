@@ -66,7 +66,7 @@ describe("Positive test cases for map function", () => {
 describe("Negative tests cases for map function", () => {
     test('Should throw a typeError when input is not an array', () => {
         const input = "Jane";
-        expect(() => map(input, x => x * 2)).toThrow(TypeError);
+        expect(map(input, x => x * 2)).toThrow(TypeError);
     });
 
     test('Should throw an error when the iteratee is not a function', () => {
@@ -78,7 +78,7 @@ describe("Negative tests cases for map function", () => {
         const input = [undefined, 2];
         const result = [NaN, 4];
         const input2 = [null, 3];
-        const result2 = [NaN, 9];
+        const result2 = [NaN, 6];
 
         expect(map(input, x => x * 2)).toStrictEqual(result);
         expect(map(input2, x => x * 2)).toStrictEqual(result2);
