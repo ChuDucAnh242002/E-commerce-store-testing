@@ -78,7 +78,7 @@ describe("Negative tests cases for map function", () => {
         const input = [undefined, 2];
         const result = [NaN, 4];
         const input2 = [null, 3];
-        const result2 = [NaN, 9];
+        const result2 = [NaN, 6];
 
         expect(map(input, x => x * 2)).toStrictEqual(result);
         expect(map(input2, x => x * 2)).toStrictEqual(result2);

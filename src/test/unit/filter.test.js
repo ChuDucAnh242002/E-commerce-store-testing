@@ -74,22 +74,23 @@ describe("Negative test cases for filter function", () => {
         const result = [
             {"active" : false},
             {"age": 34},
-            {"active": true, "age": 29}
+            {"active": true, "age": 29},
+            {}
         ]
         expect(filter(users_missing, ({user}) => user == undefined || user == null)).toStrictEqual(result)
     })
 
-    test('Should return empty when the elements type of the array is incorrect', () => {
+    test('Should return empty array when the elements type of the array is incorrect', () => {
         const result = [[]]
         expect(filter(users_wrongtype, ({age}) => age >= 30)).toStrictEqual(result)
     })
 
-    test('Should throw a typeError when input is not an array', () => {
-        const input = "Jane";
-        expect(() => filter(input, x => x * 2)).toThrow(TypeError);
+    test('Should throw an TypeError when input is not an array', () => {
+        const input = "Jane"
+        expect(filter(input, x => x * 2)).toThrow(TypeError)
     });
 
-    test('Should throw an error when the iteratee is not a function', () => {
+    test('Should throw an TypeError when the iteratee is not a function', () => {
         const input = [1, 2, 3];
         expect(() => filter(input, "Jane")).toThrow(TypeError);
     });
