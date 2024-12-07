@@ -1,5 +1,4 @@
 import compact from "./compact";
-import capitalize from "./capitalize";
 import filter from "./filter";
 import toNumber from "./toNumber";
 

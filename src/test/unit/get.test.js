@@ -53,7 +53,7 @@ describe('Test get function', () => {
     });
 
     test('Should return the entire object if an empty path is provided', () => {
-        expect(get(object, '')).toBe(object);
         expect(get(object, [])).toBe(object);
+        expect(get(object, '')).toBe(object);
     });
 });
