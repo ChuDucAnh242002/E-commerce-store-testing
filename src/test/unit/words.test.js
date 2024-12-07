@@ -91,32 +91,32 @@ describe("Negative test cases for words function", () => {
     test("Should throw a TypeError for null input", () => {
         const test = null
         const pattern = /\w+/g
-        expect(words(test, pattern)).toThrow(TypeError)
+        expect(() => words(test, pattern)).toThrow(TypeError)
     });
 
     test("Should throw a TypeError for undefined input", () => {
         const test = undefined
         const pattern = /\w+/g
-        expect(words(test, pattern)).toThrow(TypeError)
+        expect(() => words(test, pattern)).toThrow(TypeError)
     });
 
     test("Should throw a TypeError for null pattern", () => {
         const test = "start"
         const pattern = null
-        expect(words(test, pattern)).toThrow(TypeError)
+        expect(() => words(test, pattern)).toThrow(TypeError)
     });
 
     test("Should through a TypeError for undefined pattern", () => {
         const test = "start"
         const pattern = undefined
-        expect(words(test, pattern)).toThrow(TypeError)
+        expect(() => words(test, pattern)).toThrow(TypeError)
     });
 
     test("Should return empty array for empty pattern", () => {
         const test = "Hello, hi there!"
         const pattern = ""
         const expected = [""]
-        expect(words(test, pattern)).toStrictEqual(expected)
+        expect(() => words(test, pattern)).toStrictEqual(expected)
     });
 
     test("Should throw error for non-string input as string param", () => {
@@ -124,8 +124,8 @@ describe("Negative test cases for words function", () => {
         const pattern = /\w+/g
         const test2 = "Helle"
         const pattern2 = 22985305
-        expect(words(test, pattern)).toThrow(TypeError)
-        expect(words(test2, pattern2)).toThrow(TypeError)
+        expect(() => words(test, pattern)).toThrow(TypeError)
+        expect(() => words(test2, pattern2)).toThrow(TypeError)
     });
 
     test("Should handle very long string", () => {
@@ -135,15 +135,8 @@ describe("Negative test cases for words function", () => {
         expect(result.length).toBe(1)
         expect(result[0]).toBe(test)
     });
-
-    // test("Should handle special regex characters in pattern", () => {
-    //     const test = "Hi (It) (me) [my] {beloved} {friend}"
-    //     const pattern = /[\w+]/g
-    //     const expected = ["[my]"]
-    //     expect(words(test, pattern)).toStrictEqual(expected)
-    // });
-
+    
     test("Should throw a TypeError when called with missing params", () => {
-        expect(words()).toThrow(TypeError)
+        expect(() => words()).toThrow(TypeError)
     });
 })

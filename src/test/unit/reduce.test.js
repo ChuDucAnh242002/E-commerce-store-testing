@@ -72,54 +72,54 @@ describe("Negative test cases for reduce function", () => {
         expect(reduce(input, iteratee, 0)).toStrictEqual("0haha")
     });
 
-    test("Should handle when input is a boolean", () => {
+    test("Should throw TypeError when input is a boolean", () => {
         const input = true 
         const iteratee = iteratee_sum
-        expect(reduce(input, iteratee, 0)).toThrow(TypeError)
+        expect(() => reduce(input, iteratee, 0)).toThrow(TypeError)
     });
 
     test("Should throw TypeError when iteratee isn't a function", () => {
         const input = input_simple
         const iteratee = "hihi"
-        expect(reduce(input, iteratee, 0)).toThrow(TypeError)
+        expect(() => reduce(input, iteratee, 0)).toThrow(TypeError)
     });
 
     test("Should handle when input is null", () => {
         const input = null
         const iteratee = iteratee_sum
         const expected = 0
-        expect(reduce(input, iteratee, 0)).toStrictEqual(expected)
+        expect(() => reduce(input, iteratee, 0)).toStrictEqual(expected)
     });
 
     test("Should handle when input is undefined", () => {
         const input = undefined
         const iteratee = iteratee_sum
         const expected = 0
-        expect(reduce(input, iteratee, 0)).toStrictEqual(expected)
+        expect(() => reduce(input, iteratee, 0)).toStrictEqual(expected)
     });
 
     test("Should throw TypeError when iteratee is null", () => {
         const input = input_simple
         const iteratee = null
-        expect(reduce(input, iteratee, 0)).toThrow(TypeError)
+        expect(() => reduce(input, iteratee, 0)).toThrow(TypeError)
     });
 
     test("Should throw TypeError when iteratee is undefined", () => {
         const input = input_simple
         const iteratee = undefined
-        expect(reduce(input, iteratee, 0)).toThrow(TypeError)
+        expect(() => reduce(input, iteratee, 0)).toThrow(TypeError)
     });
 
     test("Should throw Error when accumulator isn't provided and input is empty", () => {
         const input = []
         const iteratee = iteratee_sum
-        expect(reduce(input, iteratee)).toThrow(Error)
+        expect(() => reduce(input, iteratee)).toThrow(Error)
     });
 
     test("Should throw TypeError when input is array which non-iterable elements", () => {
         const input = [{}, () => {}, "a", 123]
         const iteratee = iteratee_sum
-        expect(reduce(input, iteratee, 0)).toThrow(TypeError)
+        expect(() => reduce(input, iteratee, 0)).toThrow(TypeError)
     });
 
     test("Should throw TypeError when input is object which non-iterable elements", () => {
@@ -128,7 +128,7 @@ describe("Negative test cases for reduce function", () => {
             ((result[value] = []) || result[value]).push(key)
             return result
         }
-        expect(reduce(input, iteratee, 0)).toThrow(TypeError)
+        expect(() => reduce(input, iteratee, 0)).toThrow(TypeError)
     });
 
     test("Should throw TypeError when trying to mutate accumulator if it is immutable", () => {
@@ -137,12 +137,12 @@ describe("Negative test cases for reduce function", () => {
             acc.push(num);
             return acc;
         }
-        expect(reduce(input, iteratee, Object.freeze([]))).toThrow(TypeError)
+        expect(() => reduce(input, iteratee, Object.freeze([]))).toThrow(TypeError)
     });
 
     test("Should throw TypeError for non-numeric operations when accumulator is a number", () => {
         const input = input_simple
         const iteratee = (acc, num) => acc.concat(num)
-        expect(reduce(input, iteratee, 0)).toThrow(TypeError)
+        expect(() => reduce(input, iteratee, 0)).toThrow(TypeError)
     });
 });

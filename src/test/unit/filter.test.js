@@ -87,7 +87,7 @@ describe("Negative test cases for filter function", () => {
 
     test('Should throw an TypeError when input is not an array', () => {
         const input = "Jane"
-        expect(filter(input, x => x * 2)).toThrow(TypeError)
+        expect(() => filter(input, x => x * 2)).toThrow(TypeError)
     });
 
     test('Should throw an TypeError when the iteratee is not a function', () => {
