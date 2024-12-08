@@ -64,7 +64,7 @@ describe("Positive test cases for map function", () => {
 })
 
 describe("Negative tests cases for map function", () => {
-    test('Should throw a typeError when input is not an array', () => {
+    test('Should throw a TypeError when input is not an array', () => {
         const input = "Jane";
         expect(map(input, x => x * 2)).toThrow(TypeError);
     });

@@ -264,7 +264,7 @@ describe("Scenario 2: User adds and removes the produce from cart", () => {
             expect(updatedCart).toEqual(expected)
         })
 
-        test("Should throw Type Error when id or name is different type to an empty cart", () => {
+        test("Should throw TypeError when id or name is different type to an empty cart", () => {
             const selectedProducts = [
                 {
                     id: "Tomato",
@@ -351,7 +351,7 @@ describe("Scenario 2: User adds and removes the produce from cart", () => {
             expect(updatedCart).toEqual(expected)
         })
 
-        test("Should throw Type Error when shopping cart is string", () => {
+        test("Should throw TypeError when shopping cart is string", () => {
             const selectedProducts = {id: 3}
             const shoppingCart = "shopping cart"
             expect(() => addItemToCart(selectedProducts, shoppingCart)).toThrow(TypeError)

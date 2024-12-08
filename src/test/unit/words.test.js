@@ -119,7 +119,7 @@ describe("Negative test cases for words function", () => {
         expect(() => words(test, pattern)).toStrictEqual(expected)
     });
 
-    test("Should throw error for non-string input as string param", () => {
+    test("Should throw TypeError for non-string input as string param", () => {
         const test = 50358922
         const pattern = /\w+/g
         const test2 = "Helle"

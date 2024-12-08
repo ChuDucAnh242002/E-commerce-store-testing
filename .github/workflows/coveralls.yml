@@ -9,10 +9,18 @@ name: Test Coveralls
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [18.x]
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
     - name: Install dependencies
       run: npm install
@@ -25,4 +33,4 @@ jobs:
     - name: Upload coverage to Coveralls
       uses: coverallsapp/github-action@v2
       with:
-        github-toke: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
