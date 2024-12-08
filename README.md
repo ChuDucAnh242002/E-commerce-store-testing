@@ -1,13 +1,24 @@
-# Student template
+[![Coverage Status](https://coveralls.io/repos/github/hkhoa-ng/sw-testing/badge.svg?branch=main)](https://coveralls.io/github/hkhoa-ng/sw-testing?branch=main)
 
-## Purpose of this repository
+# [COMP.SE.200] Software Testing project
 
-This is a project template for students participating in Software Testing course
-at Tampere University.
+This is the repository for the project of the course COMP.SE.200-2024-2025 Software Testing.
 
-The repository only contains the source code that is under testing, `package.json` skeleton
-and LICENSE file.
+## Instruction to run tests locally
 
-Source code folder contains a separate license file that must **NOT** be removed under any circumstances!
-Removing this license file directly violates terms and conditions of the software under testing.
-Individuals who remove or modify the license file will also carry the consequences.
+1. Have `nodejs` installed.
+2. Install dependencies with
+
+```
+npm install
+```
+
+3. To run the test and the code coverage report with Jest
+
+```
+npm test
+```
+
+## Code coverage dashboard
+
+The code coverage dashboard for this repository is available at [coveralls.io](https://coveralls.io/github/ChuDucAnh242002/E-commerce-store-testing?branch=main), or by clicking on the badge of the `README.md` file.
