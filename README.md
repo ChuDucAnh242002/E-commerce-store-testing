@@ -2,23 +2,43 @@
 
 # [COMP.SE.200] Software Testing project
 
-This is the repository for the project of the course COMP.SE.200-2024-2025 Software Testing.
+This repository contains the JavaScript project for the COMP.SE.200 Software Testing course (2024–2025). It provides utility functions and example e-commerce workflows, with unit and integration tests written using Jest.
 
-## Instruction to run tests locally
+## Project contents
 
-1. Have `nodejs` installed.
-2. Install dependencies with
+- `src/` contains the JavaScript modules, including collection and value utilities and product-management helpers.
+- `src/test/unit/` contains unit tests for individual utilities.
+- `src/test/integration/` contains tests for e-commerce workflows: product browsing and search, cart operations, checkout, and producer login and product management.
+- `src/test/utils/` contains helpers used by the workflow tests.
 
+## Requirements
+
+- Node.js and npm
+
+## Install
+
+From the repository root, install the locked dependencies:
+
+```sh
+npm ci
 ```
-npm install
-```
 
-3. To run the test and the code coverage report with Jest
+## Run tests
 
-```
+Run the complete Jest test suite, generate coverage reports, and submit coverage to Coveralls:
+
+```sh
 npm test
 ```
 
-## Code coverage dashboard
+To run Jest and generate coverage locally without the Coveralls submission step:
 
-The code coverage dashboard for this repository is available at [coveralls.io](https://coveralls.io/github/ChuDucAnh242002/E-commerce-store-testing?branch=main), or by clicking on the badge of the `README.md` file.
+```sh
+npm run test:only
+```
+
+Jest is configured to discover tests under `src/test/` whose filenames end in `.test.js`. Coverage reports are written to `coverage/` (including an `lcov.info` report).
+
+## Coverage
+
+Coverage results are available on [Coveralls](https://coveralls.io/github/ChuDucAnh242002/E-commerce-store-testing?branch=main). The GitHub Actions workflow runs the test and coverage command for pushes and pull requests targeting `main`.
